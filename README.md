@@ -1,6 +1,6 @@
 # Chia Wallet Balance (chiawalletbalance)
 
-Tools to check the balance of Chia Wallet
+Tools to check the balance of Chia Wallet [DEMO](https://chiawalletbalance.web.app)
 
 ## Install the dependencies
 ```bash
