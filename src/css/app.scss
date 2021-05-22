@@ -1,0 +1,19 @@
+// app global css in SCSS form
+
+body {
+    font-family: $font-family;
+    background: #f2f3f5;
+}
+
+.clickable {
+    cursor: pointer;
+    color: $secondary;
+}
+
+body.body--dark {
+    background: #2e3330;
+}
+
+body.q-card--dark {
+    background: #3d4440;
+}
