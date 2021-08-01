@@ -52,8 +52,7 @@ export default {
         this.$q.cookies.set('userAddress', this.userAddress, { expires: '303d' })
 
         await this.$store.dispatch('wallet/fetchBalance', this.userAddress)
-        this.$q.cookies.set('grossBalance', this.balance.grossBalance, { expires: '1d'})
-        this.$q.cookies.set('netBalance', this.balance.grossBalance, { expires: '1d'})
+        this.$q.cookies.set('balance', this.balance, { expires: '1d'})
 
         await this.$store.dispatch('wallet/fetchRecords', this.userAddress)
       }

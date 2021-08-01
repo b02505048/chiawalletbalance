@@ -3,7 +3,7 @@ import { chiaExplorerInstance } from 'boot/axios'
 
 export const chiaExplorerApi = {
     WALLET: {
-        BALANCE: (address) => chiaExplorerInstance.get(`/balance/${address}`),
-        RECORDS: (address, params) => chiaExplorerInstance.get(`/coinsForAddress/${address}`, { params })
+        BALANCE: (params) => chiaExplorerInstance.get(`/account/balance`, { params }),
+        RECORDS: (params) => chiaExplorerInstance.get(`/account/txns`, { params })
     }
 }

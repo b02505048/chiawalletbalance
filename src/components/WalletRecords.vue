@@ -5,7 +5,7 @@
     title="Records"
     :data="records"
     :columns="columns"
-    row-key="coin_id"
+    row-key="block.height"
     class="q-my-sm"
     :rows-per-page-options="[25]"
     :loading="loading.wallet"
@@ -16,21 +16,44 @@
     
     <template v-slot:body="props">
       <q-tr :props="props">
-        <q-td 
-          key="coin_id"
+        <!-- <q-td 
+          key="id"
           :props="props"
           class="clickable"
           @click="viewDetail(props.row)"
         >
-          {{ props.row.coin_id | concat32Bits }}
+          {{ props.row.id | concat32Bits }}
+        </q-td> -->
+
+        <q-td 
+          key="block_height"
+          :props="props"
+          class="clickable"
+          @click="viewDetail(props.row.block)"
+        >
+          {{ props.row.block.height }}
         </q-td>
 
         <q-td key="amount" :props="props">
           {{ props.row.amount | mojo }}
         </q-td>
 
-        <q-td key="block_height" :props="props">
-          {{ props.row.block_height }}
+        <q-td 
+          key="from"
+          :class="{ clickable: props.row.from !== $q.cookies.get('userAddress') }"
+          :props="props"
+          @click="viewAddress(props.row.from)"
+        >
+          {{ props.row.from | concatXCHAddress }}
+        </q-td>
+
+        <q-td 
+          key="to"
+          :class="{ clickable: props.row.to !== $q.cookies.get('userAddress') }"
+          :props="props"
+          @click="viewAddress(props.row.to)"
+        >
+          {{ props.row.to | concatXCHAddress }}
         </q-td>
 
         <q-td key="date" :props="props">
@@ -79,25 +102,37 @@ export default {
   data() {
     return {
       columns: [
-        {
-          name: 'coin_id',
-          align: 'left',
-          label: 'Coin',
-          field: 'coin_id',
-          style: 'width: 40px',
-          headerStyle: 'width: 40px'
-        },
-        {
-          name: 'amount',
-          align: 'center',
-          label: 'Amount',
-          field: 'amount'
-        },
+        // {
+        //   name: 'id',
+        //   align: 'left',
+        //   label: 'Coin',
+        //   field: 'id',
+        //   style: 'width: 40px',
+        //   headerStyle: 'width: 40px'
+        // },
         {
           name: 'block_height',
           align: 'center',
           label: 'Height',
-          field: 'block_height'
+          field: 'block.height'
+        },
+        {
+          name: 'amount',
+          align: 'right',
+          label: 'Amount',
+          field: 'amount'
+        },
+        {
+          name: 'from',
+          align: 'center',
+          label: 'From',
+          field: 'from'
+        },
+        {
+          name: 'to',
+          align: 'center',
+          label: 'To',
+          field: 'to'
         },
         {
           name: 'date',
@@ -117,8 +152,14 @@ export default {
       }
     },
 
-    viewDetail(row) {
-      let link = `https://www.chiaexplorer.com/blockchain/coin/${row.coin_id}`
+    viewAddress(addr) {
+      let link = `https://www.chiaexplorer.com/blockchain/address/${addr}`
+      window.open(link)
+    },
+
+    viewDetail(block) {
+      // let link = `https://www.chiaexplorer.com/blockchain/coin/${row.id}`
+      let link = `https://www.chiaexplorer.com/blockchain/block/height/${block.height}`
       window.open(link)
     }
   }

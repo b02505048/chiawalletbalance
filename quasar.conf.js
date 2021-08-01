@@ -48,6 +48,7 @@ module.exports = function (/* ctx */) {
       vueRouterMode: 'history', // available values: 'hash', 'history'
 
       env: {
+        CHIA_XCHSCAN_URL: "https://xchscan.com/api",
         CHIA_EXPLORER_URL: 'https://api2.chiaexplorer.com'
       },
 

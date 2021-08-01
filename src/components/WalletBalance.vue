@@ -2,14 +2,13 @@
   <q-card>
     <q-card-section>
       <q-list>
-        <q-item clickable>
+        <!-- <q-item clickable>
           <q-item-section>
             <q-item-label>Gross Balance</q-item-label>
             <q-item-label caption>Total XCH received</q-item-label>
           </q-item-section>
           <q-item-section side>
             <q-item-label overline>XCH</q-item-label>
-            <!-- <div class="text-h6">{{ balance.grossBalance / 1000000000000 }}</div> -->
             <q-input
               dense
               borderless
@@ -20,11 +19,11 @@
               :loading="loading.wallet"
             />
           </q-item-section>
-        </q-item>
+        </q-item> -->
 
         <q-item clickable>
           <q-item-section>
-            <q-item-label>Net Balance</q-item-label>
+            <q-item-label>Current Balance</q-item-label>
             <q-item-label caption>Total XCH remaining</q-item-label>
           </q-item-section>
           <q-item-section side>
@@ -35,7 +34,7 @@
               borderless
               readonly
               class="q-pa-none"
-              v-model="netBalance"
+              v-model="balance"
               input-class="text-right"
               :loading="loading.wallet"
             />
@@ -58,24 +57,23 @@ export default {
       loading: (state) => state.utils.loading
     }),
 
-    grossBalance() {
-      const { grossBalance } = this.balance
-      if (!!grossBalance)
-        return this.$options.filters.mojo(grossBalance)
-      return 0
-    },
+    // grossBalance() {
+    //   const { grossBalance } = this.balance
+    //   if (!!grossBalance)
+    //     return this.$options.filters.mojo(grossBalance)
+    //   return 0
+    // },
 
-    netBalance() {
-      const { netBalance } = this.balance
-      if (!!netBalance)
-        return this.$options.filters.mojo(netBalance)
-      return 0
-    },
+    // netBalance() {
+    //   const { netBalance } = this.balance
+    //   if (!!netBalance)
+    //     return this.$options.filters.mojo(netBalance)
+    //   return 0
+    // },
   },
 
   async mounted() {
-    if (this.$q.cookies.has('grossBalance')) await this.$store.dispatch('wallet/setGrossBalance', this.$q.cookies.get('grossBalance'))
-    if (this.$q.cookies.has('netBalance')) await this.$store.dispatch('wallet/setNetBalance', this.$q.cookies.get('netBalance'))
+    if (this.$q.cookies.has('balance')) await this.$store.dispatch('wallet/setBalance', this.$q.cookies.get('balance'))
   }
 }
 </script>

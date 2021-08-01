@@ -16,11 +16,15 @@ export const setNetBalance = (state, netBalance) => {
     Vue.set(state.balance, 'netBalance', netBalance)
 }
 
+export const setBalance = (state, balance) => {
+    state.balance = balance
+}
+
 export const fetchBalance = (state, payload) => {
-    state.balance = payload
+    state.balance = payload.xch
 }
 
 export const fetchRecords = (state, payload) => {
-    const { coins } = payload
-    state.records = coins
+    const { txns } = payload
+    state.records = txns
 }

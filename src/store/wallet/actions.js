@@ -33,6 +33,18 @@ export const setNetBalance = ({commit}, netBalance) => {
     commit('utils/offLoading', 'wallet', {root: true})
 }
 
+
+/**
+ * Set the previous net balance
+ * @param balance 
+ */
+export const setBalance = ({commit}, balance) => {
+    commit('utils/onLoading', 'wallet', {root: true})
+    commit('setBalance', balance)
+    commit('utils/offLoading', 'wallet', {root: true})
+}
+
+
 /**
  * Call Chia Explorer API to fetch the balance
  * @param address
@@ -40,7 +52,10 @@ export const setNetBalance = ({commit}, netBalance) => {
 export const fetchBalance = async ({commit}, address) => {
     commit('utils/onLoading', 'wallet', {root: true})
     try {
-        const { data: res } = await chiaExplorerApi.WALLET.BALANCE(address)
+        let queryString = {
+            address 
+        }
+        const { data: res } = await chiaExplorerApi.WALLET.BALANCE(queryString)
         console.log(res)
         commit('fetchBalance', res)
     } catch (err) {
@@ -59,9 +74,11 @@ export const fetchRecords = async ({commit}, address) => {
     commit('utils/onLoading', 'wallet', {root: true})
     try {
         let queryString = {
-            page: 1
+            address,
+            limit: 25,
+            offset: 0
         }
-        const { data: res } = await chiaExplorerApi.WALLET.RECORDS(address, queryString)
+        const { data: res } = await chiaExplorerApi.WALLET.RECORDS(queryString)
         console.log(res)
         commit('fetchRecords', res)
     } catch (err) {

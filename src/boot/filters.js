@@ -17,6 +17,15 @@ export const filters = {
 
         let newVal = `${val.substring(0, 32)}...`
         return newVal
+    },
+
+    concatXCHAddress: (val) => {
+        if (!!val) {
+            let newVal = `${val.substring(0, 9)}...${val.slice(-7)}`
+            return newVal
+        }
+
+        return ''
     }
 }
 
